@@ -1,0 +1,9 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ .Release.Name }}-tls-ca-issuer
+  labels:
+    {{- include "labels" . | nindent 4 }}
+spec:
+  ca:
+    secretName: {{ .Release.Name }}-tls-ca-secret

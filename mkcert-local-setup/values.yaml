@@ -1,0 +1,8 @@
+# Don't forget to add any custom local domain to your hosts files
+# Windows: C:\Windows\System32\drivers\etc\hosts
+# Ubuntu: /etc/hosts
+dnsNames:
+  - "*.example.local"
+  - "*.sharegate.local"
+  - "*.officevibe.local"
+  - "*.gsoft.local"

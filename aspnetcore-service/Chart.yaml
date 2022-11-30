@@ -1,0 +1,6 @@
+apiVersion: v2
+name: aspnetcore-service
+description: A Helm chart for ASP.NET Core services
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

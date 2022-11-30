@@ -1,0 +1,12 @@
+cert-manager:
+  # We want to install cert-manager's custom resource definitions in order to declare issuers and certificates
+  installCRDs: true
+
+  # We want to delete issued certificates when uninstalling cert-manager
+  # https://cert-manager.io/docs/usage/certificate/#cleaning-up-secrets-when-certificates-are-deleted
+  extraArgs:
+    - "--enable-certificate-owner-ref=true"
+
+  # We don't need monitoring
+  prometheus:
+    enabled: false

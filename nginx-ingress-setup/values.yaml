@@ -1,0 +1,51 @@
+ingress-nginx:
+  controller:
+    service:
+    # Change these ports if you want the ingress controller service ports on your host
+    # For example if you are in a local environment and don't want to expose your 80 and 443 ports
+    # Or simply because these ports are already used.
+    # ports:
+    #   http: 80
+    #   https: 443
+
+    # Nginx settings can be found here:
+    # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
+    config:
+      # Only enable if nginx ingress is behind another reverse proxy such as Azure Front Door
+      # We do not want to allow visitors to provide their own X-Forwarded-* header values
+      use-forwarded-headers: "false"
+
+      # Hide some web servers response headers
+      hide-headers: "X-Powered-By,Server"
+
+      # Enable compression only if not done already by another reverse proxy
+      enable-brotli: "true"
+      use-gzip: "true"
+
+      # Enable modsecurity web application firewall (WAF) and OWASP CRS attack detection rules
+      # Not necessary if nginx is behind another reverse proxy that already provide a WAF
+      enable-modsecurity: "true"
+      # OWASP CRS prevents some well-known attacks
+      # Try to add '"><script>alert(1);</script>' without the single quotes in a URL, it should block the request
+      enable-owasp-modsecurity-crs: "true"
+      # By default modsecurity only detects attack (SecRuleEngine DetectionOnly), we want to block them
+      modsecurity-snippet: |
+        SecRuleEngine On
+
+      # Enable HSTS only if you have TLS setup on this ingress controller
+      # Not necessary if nginx is behind another reverse proxy that already provide HSTS settings
+      hsts: "true"
+      hsts-preload: "true"
+      hsts-include-subdomains: "true"
+      hsts-max-age: "31536000"
+      keep-alive: "10"
+
+      # Restrict SSL ciphers to secured ones
+      ssl-ciphers: "ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256"
+
+    # Add extra security headers
+    addHeaders:
+      Referrer-Policy: "strict-origin-when-cross-origin"
+      X-Content-Type-Options: "nosniff"
+      X-Frame-Options: "SAMEORIGIN"
+      X-XSS-Protection: "1; mode=block"

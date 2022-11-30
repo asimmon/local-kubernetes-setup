@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mkcert-cert-manager
+description: A Helm chart to install a local certificate issued from mkcert's certificate authority
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

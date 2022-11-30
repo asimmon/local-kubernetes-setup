@@ -1,0 +1,10 @@
+apiVersion: v2
+name: kubernetes-dashboard-setup
+description: A Helm chart to setup kubernetes dashboard
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+dependencies:
+  - name: kubernetes-dashboard
+    version: "6.0.0"
+    repository: "https://kubernetes.github.io/dashboard/"

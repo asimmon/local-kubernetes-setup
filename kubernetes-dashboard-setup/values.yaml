@@ -1,0 +1,24 @@
+kubernetes-dashboard:
+  # Grant access to the dashboard through a "Skip" button in the login page
+  extraArgs:
+    - --enable-skip-login
+
+  # Expose the dashboard through an ingress using TLS
+  # The TLS secret should be created with the "mkcert-local-setup" chart
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - kubernetes-dashboard.example.local
+    tls:
+      - secretName: kubernetes-dashboard-mkcert-tls-secret
+        hosts:
+          - kubernetes-dashboard.example.local
+    annotations:
+      # Some destructive actions seems to be blocked by the web application firewall
+      nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+
+  # This service account will have the "cluster-admin" cluster role
+  serviceAccount:
+    create: true
+    name: kubernetes-dashboard-admin-user
