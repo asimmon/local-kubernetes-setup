@@ -3,6 +3,3 @@
 # Ubuntu: /etc/hosts
 dnsNames:
   - "*.example.local"
-  - "*.sharegate.local"
-  - "*.officevibe.local"
-  - "*.gsoft.local"
