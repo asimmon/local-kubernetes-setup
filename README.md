@@ -51,7 +51,7 @@ Then, go to *Docker Desktop settings > Kubernetes* and check the *Enable Kuberne
 
 [PowerShell Core 7](https://github.com/PowerShell/PowerShell#get-powershell) is cross-platform and only required on your OS and WSL 2 for one particular steps of this guide, which is coping the mkcert root certificate authority into the chart directory.
 
-> You may look at the content the script and do the equivalent on your own, without installing PowerShell Core.
+> You may look at the [content the script](https://github.com/asimmon/local-kubernetes-setup/blob/main/mkcert-local-setup/mkcert/Copy-Certificates.ps1) and do the equivalent on your own, without installing PowerShell Core.
 
 ### Install Kubectl and Helm
 
