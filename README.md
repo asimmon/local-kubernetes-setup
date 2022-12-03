@@ -150,7 +150,7 @@ Modify the maximum CPU and memory used by WSL 2 by following [these steps](https
 
 * Then, copy mkcert's root certificate authority (CA) into the `mkcert-local-setup` chart directory:
 ```
-./mkcert-local-setup/mkcert/Copy-Certificates.ps1
+pwsh ./mkcert-local-setup/mkcert/Copy-Certificates.ps1
 ```
 
 
