@@ -102,7 +102,7 @@ kubectl config use-context docker-desktop
 ### Install Windows Terminal or Oh My Zsh
 
 * Windows: https://aka.ms/terminal
-* Linux and macOS: https://ohmyz.sh
+* Linux and macOS: https://ohmyz.sh and https://github.com/romkatv/powerlevel10k
 
 ![image](https://user-images.githubusercontent.com/14242083/204665666-06edce76-6ffe-476b-986c-a4f5dfaf823b.png)
 
