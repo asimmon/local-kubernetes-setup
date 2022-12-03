@@ -150,7 +150,7 @@ Modify the maximum CPU and memory used by WSL 2 by following [these steps](https
 
 * Then, copy mkcert's root certificate authority (CA) into the `mkcert-local-setup` chart directory:
 ```
-.\mkcert-local-setup\mkcert\Copy-Certificates.ps1
+./mkcert-local-setup/mkcert/Copy-Certificates.ps1
 ```
 
 
@@ -167,7 +167,7 @@ First, have a look at `.\nginx-ingress-setup\Chart.yaml` and `.\nginx-ingress-se
 Now, run this command anytime you want to install or update the nginx ingress controller:
 
 ```
-helm upgrade --install --wait --debug --dependency-update --namespace nginx-ingress --create-namespace nginx-ingress .\nginx-ingress-setup
+helm upgrade --install --wait --debug --dependency-update --namespace nginx-ingress --create-namespace nginx-ingress ./nginx-ingress-setup
 ```
 
 
@@ -178,7 +178,7 @@ helm upgrade --install --wait --debug --dependency-update --namespace nginx-ingr
 First, have a look at `.\cert-manager-setup\Chart.yaml` and `.\cert-manager-setup\values.yaml`. It's installed as a chart dependency too.
 
 ```
-helm upgrade --install --wait --debug --dependency-update --namespace cert-manager --create-namespace cert-manager .\cert-manager-setup
+helm upgrade --install --wait --debug --dependency-update --namespace cert-manager --create-namespace cert-manager ./cert-manager-setup
 ```
 
 ## 🚀 Deploy an ASP.NET Core example service
@@ -193,7 +193,7 @@ We'll also deploy the service to the domain `aspnetcore.example.local`. Two thin
 
 Issue a TLS certificate for `*.example.local` in the `demo` namespace by installing a release of this chart:
 ```
-helm upgrade --install --wait --dependency-update --namespace demo --create-namespace demo-mkcert .\mkcert-local-setup
+helm upgrade --install --wait --dependency-update --namespace demo --create-namespace demo-mkcert ./mkcert-local-setup
 ```
 
 This will issue a TLS certificate stored in a secret named `<helm-release-name>-tls-secret`. In this case the release name was `demo-mkcert`, so created TLS secret is named `demo-mkcert-tls-secret`. This secret name is very important because it will be referenced by your ingress.
@@ -205,17 +205,17 @@ The chart `aspnetcore-service` exposes the [Microsoft ASP.NET Core sample Docker
 ```yaml
 ingress:
   className: nginx
-  hostname: aspnetcore.example.local # <-- local domain covered by the TLS certificate
+  hostname: aspnetcore.example.local # <-- Local domain covered by the TLS certificate
   # [...]
   tls:
-    enabled: true
-    secretName: demo-mkcert-tls-secret # <-- secret created in the previous step
+    enabled: true # <-- Don't want HTTPS? Set this to false
+    secretName: demo-mkcert-tls-secret # <-- Secret created in the previous step
 ```
 
 Now, deploy the ASP.NET Core app to the `demo` namespace, next to the TLS secret:
 
 ```
-helm upgrade --install --wait --debug --dependency-update --namespace demo --create-namespace demo-aspnetcore .\aspnetcore-service\
+helm upgrade --install --wait --debug --dependency-update --namespace demo --create-namespace demo-aspnetcore ./aspnetcore-service
 ```
 The service should now be accessible at https://aspnetcore.example.local/
 
@@ -232,13 +232,13 @@ The service should now be accessible at https://aspnetcore.example.local/
 Same as for the ASP.NET Core app, we first need a TLS certificate:
 
 ```
-helm upgrade --install --wait --dependency-update --namespace kubernetes-dashboard --create-namespace kubernetes-dashboard-mkcert .\mkcert-local-setup\
+helm upgrade --install --wait --dependency-update --namespace kubernetes-dashboard --create-namespace kubernetes-dashboard-mkcert ./mkcert-local-setup
 ```
 
 The `kubernetes-dashboard-setup` chart uses the [kubernetes-dashboard](https://artifacthub.io/packages/helm/k8s-dashboard/kubernetes-dashboard) subchart and is already configured for our custom domain and TLS certificate secret name.
 
 ```
-helm upgrade --install --wait --debug --dependency-update --namespace kubernetes-dashboard --create-namespace kubernetes-dashboard .\kubernetes-dashboard-setup\
+helm upgrade --install --wait --debug --dependency-update --namespace kubernetes-dashboard --create-namespace kubernetes-dashboard ./kubernetes-dashboard-setup
 ```
 The service should now be accessible at https://kubernetes-dashboard.example.local. Press the "Skip" button to sign-in, anonymous access should be enabled.
 
