@@ -5,7 +5,7 @@
 
 This repository contains the instructions and code to setup a local Kubernetes cluster. At the end, you'll get:
 
-* A local Kubernetes cluster with TLS support for your services
+* A local Kubernetes cluster with TLS support for your services on local domains (such as `myapi.example.local`)
 * Command-line tools and completion for your terminal
 * A configured nginx ingress controller with compression, web application firewall and extra security settings enabled
 * A self-signed root certificate authority trusted by your OS, the cluster and your browsers
